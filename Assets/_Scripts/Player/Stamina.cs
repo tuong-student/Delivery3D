@@ -9,6 +9,11 @@ namespace Game
         [SerializeField] private float _currentStamina;
         [SerializeField] private float _maxStamina;
 
+        void Start()
+        {
+            _currentStamina = _maxStamina;
+        }
+
         public float CurrentStamina {
             get 
             { 
