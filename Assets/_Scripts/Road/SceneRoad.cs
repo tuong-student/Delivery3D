@@ -18,10 +18,12 @@ namespace Game
     }
 
     [ShowOdinSerializedPropertiesInInspector]
+    [Injectable]
     public class SceneRoad : MonoBehaviour, IDependencyScopeInstaller
     {
         public static Action<SceneRoad> onSceneLoad;
         [SerializeField] private CustomDictionary<RoadDirection, Road> _roadDic = new CustomDictionary<RoadDirection, Road>();
+        [Inject] private GameManager _gameManager;
 
         private IDependencyContainer container;
         public void Install(IDependencyContainer container)
@@ -34,7 +36,8 @@ namespace Game
         {
             container = FindObjectOfType<AbstractDependencyScopeBehaviour>().DependencyContainer;
             Install(container);
-            onSceneLoad?.Invoke(this);
+            _gameManager.SetSceneRoad(this);
+            UIEvent.onUISetBtnRequest.Invoke(this);
         }
 
         public Road ChooseRoad(RoadDirection roadDirection)

@@ -21,8 +21,6 @@ namespace Game
         }
 
         [Inject]
-        private UIManager _UImanager;
-        [Inject]
         private Player _player;
         private SceneRoad _sceneRoad;
 
@@ -33,10 +31,15 @@ namespace Game
 
         void Start()
         {
-            _UImanager.onUIButtonDirectionPress += ChooseRoad;
+            UIEvent.onDirectionButtonPress.Register(ChooseRoad);
         }
 
-        private void SetSceneRoad(SceneRoad sceneRoad)
+        void OnDestroy()
+        {
+            UIEvent.PurgeDelegatesOf(this);
+        }
+
+        public void SetSceneRoad(SceneRoad sceneRoad)
         {
             this._sceneRoad = sceneRoad;
         }

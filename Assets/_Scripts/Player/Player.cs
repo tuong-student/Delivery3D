@@ -25,8 +25,7 @@ namespace Game
         }
 
         public PlayerState _playerState;
-        private bool _canMove = true;
-        [SerializeField] private bool editWeight;
+        private bool _canMove;
         [SerializeField] private PlayerView _playerView;
         [SerializeField] private Stamina _stamina;
         [SerializeField] private Vector3 _currentPointPosition;
@@ -37,20 +36,20 @@ namespace Game
         private float _currentSpeed;
 
         #region Weight
-        [BoxGroup("Weight"), ShowIf(nameof(editWeight), true)]
+        [BoxGroup("Weight")]
         [SerializeField] private float _maxWeight;
 
-        [BoxGroup("Weight"), ShowIf(nameof(editWeight), true)]
+        [BoxGroup("Weight")]
         [SerializeField] private float _currentWeight;
 
         [ShowInInspector]
-        [BoxGroup("Weight"), ShowIf("editWeight", true)]
+        [BoxGroup("Weight")]
         [Range(0, 1)]
         [LabelText("MediumWeight%")]
         private float _mediumWeightRation = 0.5f;
 
         [ShowInInspector]
-        [BoxGroup("Weight"), ShowIf("editWeight", true)]
+        [BoxGroup("Weight")]
         [Range(0, 1)]
         [LabelText("HeavyWeight%")]
         private float _heavyWeightRation = 0.8f;
@@ -105,6 +104,7 @@ namespace Game
 
         void Update()
         {
+            _playerView._playerState = _playerState;
             Move();
             switch(_playerState)
             {
@@ -148,7 +148,10 @@ namespace Game
             if(Vector3.Distance(this.transform.position, _currentPointPosition) < 0.5f)
             {
                 if(CheckIfStopPoint())
+                {
                     Stop();
+                    UIEvent.onUIButtonRequester.Invoke(true);
+                }
                 else
                     _currentPointPosition = _currentRoad.GetNextPointPosition();
             }
@@ -160,13 +163,16 @@ namespace Game
 
         public void Stop()
         {
-            SetCanMove(false);
+            _playerState = PlayerState.Standing;
             _playerView.Stop();
+            SetCanMove(false);
         }
 
         public void SetCanMove(bool canMove)
         {
             this._canMove = canMove;
+            if(canMove)
+                CheckCurrentWeight();
         }
 
         private bool CheckIfStopPoint()

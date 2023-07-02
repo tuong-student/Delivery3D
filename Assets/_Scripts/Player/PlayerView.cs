@@ -40,13 +40,7 @@ namespace Game
 
         public void Stop()
         {
-            switch(_playerState)
-            {
-                case PlayerState.Standing:
-                case PlayerState.Resting:
-                    SetAnim(AnimState.Idle);
-                    break;
-            }
+            SetAnim(AnimState.Idle);
         }
 
         private void SetAnim(AnimState animStage)

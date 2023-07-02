@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657815, g: 0.49641192, b: 0.57481617, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481676, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -925,6 +925,7 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
+  m_VertexColorAlwaysGammaSpace: 0
   m_AdditionalShaderChannelsFlag: 0
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
@@ -1456,12 +1457,8 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 711137572333779120, guid: 7aa230134568e4b07baaacaa14408406, type: 3}
-      propertyPath: _myBody
-      value: 
-      objectReference: {fileID: 711137572335226805}
-    - target: {fileID: 711137572333779120, guid: 7aa230134568e4b07baaacaa14408406, type: 3}
-      propertyPath: editWeight
+    - target: {fileID: 615912559220925633, guid: 7aa230134568e4b07baaacaa14408406, type: 3}
+      propertyPath: m_ApplyRootMotion
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 711137572333779122, guid: 7aa230134568e4b07baaacaa14408406, type: 3}
@@ -1520,11 +1517,6 @@ PrefabInstance:
 --- !u!4 &711137572335226803 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 711137572333779123, guid: 7aa230134568e4b07baaacaa14408406, type: 3}
-  m_PrefabInstance: {fileID: 711137572335226802}
-  m_PrefabAsset: {fileID: 0}
---- !u!54 &711137572335226805 stripped
-Rigidbody:
-  m_CorrespondingSourceObject: {fileID: 711137572335226806, guid: 7aa230134568e4b07baaacaa14408406, type: 3}
   m_PrefabInstance: {fileID: 711137572335226802}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &4179432231964625289

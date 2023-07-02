@@ -34,7 +34,7 @@ Transform:
   m_Children:
   - {fileID: 711137572901830561}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &711137572333779120
 MonoBehaviour:
@@ -49,11 +49,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _playerState: 0
-  editWeight: 1
   _playerView: {fileID: 711137572901830566}
   _stamina: {fileID: 1767171}
   _currentPointPosition: {x: 0, y: 0, z: 0}
-  _myBody: {fileID: 0}
+  _myBody: {fileID: 711137572335226806}
+  _lightWeightSpeed: 5
+  _mediumWeightSpeed: 3
+  _heavyWeightSpeed: 2
   _maxWeight: 20
   _currentWeight: 0
 --- !u!114 &1767171
