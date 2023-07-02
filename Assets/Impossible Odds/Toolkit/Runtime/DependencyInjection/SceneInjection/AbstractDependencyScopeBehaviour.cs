@@ -9,7 +9,7 @@
 		[SerializeField, Tooltip("Perform the injection process on Start.")]
 		private bool injectOnStart = true;
 
-		private IDependencyContainer container = null;
+	 	protected IDependencyContainer container = null;
 
 		public IDependencyContainer DependencyContainer
 		{

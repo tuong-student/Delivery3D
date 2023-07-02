@@ -7,8 +7,10 @@ namespace Game
 {
     public class Road : MonoBehaviour
     {
+        [SerializeField] private SceneRoad sceneRoad;
         [SerializeField] private List<Transform> roadPoints = new List<Transform>();
-        private int currentPointIndex = 0;
+        private int currentPointIndex = -1;
+        public int CurrentPointIndex => currentPointIndex;
         [SerializeField] private bool _showDebugRoad;
 
         void OnDrawGizmos()
@@ -50,6 +52,12 @@ namespace Game
                 nextPointPosition = roadPoints[currentPointIndex].position;
                 return true;
             }
+        }
+
+        public Vector3 GetNextPointPosition()
+        {
+            currentPointIndex++;
+            return roadPoints[currentPointIndex].position;
         }
 
         public bool IsLastPoint()
