@@ -126,10 +126,6 @@ namespace Game
         }
         #endregion
 
-        public void SetCurrentPoint(Vector3 newPoint)
-        {
-            _currentPointPosition = newPoint;
-        }
         public void SetRoad(Road road)
         {
             if(road == null) return;
@@ -137,6 +133,10 @@ namespace Game
             this._currentRoad = road;
             _currentPointPosition = _currentRoad.GetNextPointPosition();
             Move();
+        }
+        public bool IsHadRoad()
+        {
+            return this._currentRoad != null;
         }
 
         private void Move()
@@ -167,7 +167,6 @@ namespace Game
             _playerView.Stop();
             SetCanMove(false);
         }
-
         public void SetCanMove(bool canMove)
         {
             this._canMove = canMove;
@@ -177,7 +176,7 @@ namespace Game
 
         private bool CheckIfStopPoint()
         {
-            if(_currentRoad.CurrentPointIndex == 0 || _currentRoad.IsLastPoint())
+            if(_currentRoad.IsLastPoint())
             {
                 return true;
             }

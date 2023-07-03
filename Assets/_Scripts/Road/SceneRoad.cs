@@ -6,12 +6,14 @@ using UnityEngine;
 using Sirenix.OdinInspector;
 using NOOD;
 using ImpossibleOdds.DependencyInjection;
+using ImpossibleOdds;
 
 namespace Game
 {
     [System.Serializable]
     public enum RoadDirection
     {
+        Beginning,
         Left,
         Forward,
         Right,
@@ -19,25 +21,15 @@ namespace Game
 
     [ShowOdinSerializedPropertiesInInspector]
     [Injectable]
-    public class SceneRoad : MonoBehaviour, IDependencyScopeInstaller
+    [ExecuteAfter(typeof(GameManager))]
+    public class SceneRoad : MonoBehaviour
     {
-        public static Action<SceneRoad> onSceneLoad;
         [SerializeField] private CustomDictionary<RoadDirection, Road> _roadDic = new CustomDictionary<RoadDirection, Road>();
         [Inject] private GameManager _gameManager;
 
-        private IDependencyContainer container;
-        public void Install(IDependencyContainer container)
-        {
-            container.Register<SceneRoad>(new InstanceBinding<SceneRoad>(this));
-            this.Inject(container);
-        }
-
         void Start()
         {
-            container = FindObjectOfType<AbstractDependencyScopeBehaviour>().DependencyContainer;
-            Install(container);
             _gameManager.SetSceneRoad(this);
-            UIEvent.onUISetBtnRequest.Invoke(this);
         }
 
         public Road ChooseRoad(RoadDirection roadDirection)

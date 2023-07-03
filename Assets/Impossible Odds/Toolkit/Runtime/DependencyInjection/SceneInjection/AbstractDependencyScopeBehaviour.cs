@@ -27,14 +27,14 @@
 			{
 				InstallBindings();
 			}
-		}
-
-		protected virtual void Start()
-		{
 			if (injectOnStart && (container != null))
 			{
 				Inject();
 			}
+		}
+
+		protected virtual void Start()
+		{
 		}
 
 		protected virtual void InstallContainer()

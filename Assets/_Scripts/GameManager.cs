@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using ImpossibleOdds.DependencyInjection;
@@ -26,7 +25,6 @@ namespace Game
 
         void Awake()
         {
-            SceneRoad.onSceneLoad += SetSceneRoad;
         }
 
         void Start()
@@ -42,6 +40,15 @@ namespace Game
         public void SetSceneRoad(SceneRoad sceneRoad)
         {
             this._sceneRoad = sceneRoad;
+            UIEvent.onUISetBtnRequest.Invoke(_sceneRoad);
+            if(_player.IsHadRoad())
+            {
+
+            }
+            else
+            {
+                _player.SetRoad(_sceneRoad.ChooseRoad(RoadDirection.Beginning));
+            }
         }
 
         private void ChooseRoad(RoadDirection buttonType)

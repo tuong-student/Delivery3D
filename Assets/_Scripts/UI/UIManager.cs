@@ -35,12 +35,12 @@ namespace Game
                 UIEvent.onDirectionButtonPress.Invoke(RoadDirection.Left);
                 HideBtn();
             });
-            _forwardBtn.onClick.AddListener(() => 
+            _rightBtn.onClick.AddListener(() => 
             {
                 UIEvent.onDirectionButtonPress.Invoke(RoadDirection.Right);
                 HideBtn();
             });
-            _rightBtn.onClick.AddListener(() => 
+            _forwardBtn.onClick.AddListener(() => 
             {
                 UIEvent.onDirectionButtonPress.Invoke(RoadDirection.Forward);
                 HideBtn();
@@ -67,17 +67,17 @@ namespace Game
             {
                 if(roadDirection == RoadDirection.Left)
                 {
-                    _leftBtn.gameObject.SetActive(true);
+                    // _leftBtn.gameObject.SetActive(true);
                     _isLeft = true;
                 }
                 if(roadDirection == RoadDirection.Right)
                 {
-                    _rightBtn.gameObject.SetActive(true);
+                    // _rightBtn.gameObject.SetActive(true);
                     _isRight = true;
                 }
                 if(roadDirection == RoadDirection.Forward)
                 {
-                    _forwardBtn.gameObject.SetActive(true);
+                    // _forwardBtn.gameObject.SetActive(true);
                     _isForward = true;
                 }
             }
@@ -87,9 +87,9 @@ namespace Game
         {
             if(active == false)
             {
-                _leftBtn.gameObject.SetActive(active);
-                _rightBtn.gameObject.SetActive(active);
-                _forwardBtn.gameObject.SetActive(active);
+                _leftBtn.gameObject.SetActive(false);
+                _rightBtn.gameObject.SetActive(false);
+                _forwardBtn.gameObject.SetActive(false);
             }
             else
             {
