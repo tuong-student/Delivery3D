@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using DG.Tweening;
 
 namespace Game
 {
@@ -9,28 +10,43 @@ namespace Game
     {
         [SerializeField] private TMPro.TextMeshProUGUI _eventPlaceText;
         [SerializeField] private Button _denyBtn, _acceptBtn;
+        [SerializeField] private GameObject _eventPlacePanel;
 
         [SerializeField] private Transform _inEventTextTransform, _outEventTextTransform, _inDenyBtnTransform, _outDenyBtnTransform, _inAcceptBtnTransform, _outAcceptBtnTransform;
 
         void Start()
         {
-            _acceptBtn.onClick.AddListener(() => UIEvent.onEventPlaceButtonPress.Invoke(true));
-            _denyBtn.onClick.AddListener(() => UIEvent.onEventPlaceButtonPress.Invoke(false));
+            UIEvent.onEventPlaceSetRequest.Register(SetEventText);
+            _acceptBtn.onClick.AddListener(() =>
+            {
+                UIEvent.onEventPlaceButtonPress.Invoke(true);
+                Hide();
+            });
+            _denyBtn.onClick.AddListener(() =>
+            {
+                UIEvent.onEventPlaceButtonPress.Invoke(false);
+                Hide();
+            });
         }
 
         private void SetEventText(string text)
         {
+            Show();
             _eventPlaceText.text = text;
         }
 
         private void Show()
         {
-
+            _eventPlacePanel.transform.DOMove(_inEventTextTransform.position, 0.5f).SetEase(Ease.OutBounce);
+            _denyBtn.transform.DOMove(_inDenyBtnTransform.position, 0.5f).SetEase(Ease.OutBounce);
+            _acceptBtn.transform.DOMove(_inAcceptBtnTransform.position, 0.5f).SetEase(Ease.OutBounce);
         }
 
         private void Hide()
         {
-
+            _eventPlacePanel.transform.DOMove(_outEventTextTransform.position, 0.5f).SetEase(Ease.OutBounce);
+            _denyBtn.transform.DOMove(_outDenyBtnTransform.position, 0.5f).SetEase(Ease.OutBounce);
+            _acceptBtn.transform.DOMove(_outAcceptBtnTransform.position, 0.5f).SetEase(Ease.OutBounce);
         }
     }
 }
