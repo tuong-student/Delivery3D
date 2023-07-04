@@ -7,16 +7,21 @@ namespace Game
 {
     public static class UIEvent
     {
-        public static UIAction<bool> onUIButtonRequester = new UIAction<bool>();
+        public static UIAction<bool> onDirectionButtonOnOffRequester = new UIAction<bool>();
         public static UIAction<RoadDirection> onDirectionButtonPress = new UIAction<RoadDirection>();
-        public static UIAction<SceneRoad> onUISetBtnRequest = new UIAction<SceneRoad>();
+        public static UIAction<SceneRoad> onSetDirectionBtnRequest = new UIAction<SceneRoad>();
+
+        public static UIAction<string> onEventPlaceSetRequest = new UIAction<string>();
+        public static UIAction<bool> onEventPlaceButtonPress = new UIAction<bool>();
 
 
         public static void PurgeDelegatesOf(object target)
         {
-            onUIButtonRequester.PurgeDelegatesOf(target);
+            onDirectionButtonOnOffRequester.PurgeDelegatesOf(target);
             onDirectionButtonPress.PurgeDelegatesOf(target);
-            onUISetBtnRequest.PurgeDelegatesOf(target);
+            onSetDirectionBtnRequest.PurgeDelegatesOf(target);
+            onEventPlaceSetRequest.PurgeDelegatesOf(target);
+            onEventPlaceButtonPress.PurgeDelegatesOf(target);
         }
     }
 }

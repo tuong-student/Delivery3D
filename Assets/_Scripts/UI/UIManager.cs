@@ -46,8 +46,8 @@ namespace Game
                 HideBtn();
             });
 
-            UIEvent.onUISetBtnRequest.Register(SetBtn);
-            UIEvent.onUIButtonRequester.Register(ActiveBtn);
+            UIEvent.onSetDirectionBtnRequest.Register(SetBtn);
+            UIEvent.onDirectionButtonOnOffRequester.Register(ActiveBtn);
         }
 
         void Start()

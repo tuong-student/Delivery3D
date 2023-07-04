@@ -40,7 +40,7 @@ namespace Game
         public void SetSceneRoad(SceneRoad sceneRoad)
         {
             this._sceneRoad = sceneRoad;
-            UIEvent.onUISetBtnRequest.Invoke(_sceneRoad);
+            UIEvent.onSetDirectionBtnRequest.Invoke(_sceneRoad);
             if(_player.IsHadRoad())
             {
 

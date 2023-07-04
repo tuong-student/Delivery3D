@@ -26,14 +26,17 @@ namespace Game
 
         public PlayerState _playerState;
         private bool _canMove;
+        private Road _currentRoad;
+        private float _currentSpeed;
+        private EventPlace _eventPlace;
+        private List<Package> _packageList;
+        private float _money;
+
         [SerializeField] private PlayerView _playerView;
         [SerializeField] private Stamina _stamina;
         [SerializeField] private Vector3 _currentPointPosition;
-        private Road _currentRoad;
         [SerializeField] private Rigidbody _myBody;
-
         [SerializeField] private float _lightWeightSpeed = 5f, _mediumWeightSpeed = 3f, _heavyWeightSpeed = 2f;
-        private float _currentSpeed;
 
         #region Weight
         [BoxGroup("Weight")]
@@ -150,7 +153,7 @@ namespace Game
                 if(CheckIfStopPoint())
                 {
                     Stop();
-                    UIEvent.onUIButtonRequester.Invoke(true);
+                    UIEvent.onDirectionButtonOnOffRequester.Invoke(true);
                 }
                 else
                     _currentPointPosition = _currentRoad.GetNextPointPosition();
@@ -181,6 +184,34 @@ namespace Game
                 return true;
             }
             else return false;
+        }
+
+        public void SetEventPlace(EventPlace place)
+        {
+            this._eventPlace = place;
+        }
+
+        public void AddPackage(Package package)
+        {
+            this._packageList.Add(package);
+        }
+        public void RemovePackage(Package package)
+        {
+            this._packageList.Remove(package);
+        }
+
+        public void AddMoney(float amount)
+        {
+            this._money += amount;
+        }
+        public bool TryToSpendMoney(float amount)
+        {
+            if(amount > this._money)
+            {
+                return false;
+            }
+            this._money -= amount;
+            return true;
         }
     }
 }
