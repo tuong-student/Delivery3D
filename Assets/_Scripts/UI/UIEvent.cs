@@ -13,6 +13,7 @@ namespace Game
 
         public static UIAction<string> onEventPlaceSetRequest = new UIAction<string>();
         public static UIAction<bool> onEventPlaceButtonPress = new UIAction<bool>();
+        public static UIAction<bool> onEventPlaceButtonOnOffRequest = new UIAction<bool>();
 
 
         public static void PurgeDelegatesOf(object target)

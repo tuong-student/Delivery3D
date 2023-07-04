@@ -29,6 +29,7 @@ namespace Game
         }
     }
 
+    [System.Serializable]
     public class Package
     {
         public string _name;

@@ -24,7 +24,7 @@ namespace Game
         protected override void OnAccept(bool value)
         {
             if(value == false) return;
-
+            AskPlayer();
         }
 
         private void AskPlayer()
@@ -38,7 +38,9 @@ namespace Game
             if(value == false) return;
             _currentPlayer.AddPackage(_currentPackage);
             _currentPackage = null;
+            UIEvent.onEventPlaceButtonOnOffRequest.Invoke(false);
         }
+
     }
 
 }
