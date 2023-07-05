@@ -42,6 +42,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3329110827138291287}
   - component: {fileID: 6070307718633339136}
+  - component: {fileID: 8375364831693610370}
   m_Layer: 0
   m_Name: EventPlace
   m_TagString: Untagged
@@ -86,6 +87,23 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 7.11
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &8375364831693610370
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9181775668161233523}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a2088bd7dc34b48fe9f0973b4c7569d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _currentPackage:
+    _name: 
+    _weight: 0
+    _destination: 
+    _money: 0
 --- !u!1001 &4087180862775567668
 PrefabInstance:
   m_ObjectHideFlags: 0

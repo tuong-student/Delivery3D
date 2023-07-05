@@ -29,9 +29,11 @@ namespace Game
         private Road _currentRoad;
         private float _currentSpeed;
         private EventPlace _eventPlace;
-        private List<Package> _packageList;
+        private List<Package> _packageList = new List<Package>();
         private float _money;
+        [Inject] private CustomCamera _camera;
 
+        [SerializeField] private Transform _cameraBesideTransform;
         [SerializeField] private PlayerView _playerView;
         [SerializeField] private Stamina _stamina;
         [SerializeField] private Vector3 _currentPointPosition;
@@ -193,6 +195,7 @@ namespace Game
 
         public void AddPackage(Package package)
         {
+            Debug.Log(package);
             this._packageList.Add(package);
         }
         public void RemovePackage(Package package)
@@ -212,6 +215,11 @@ namespace Game
             }
             this._money -= amount;
             return true;
+        }
+
+        public Vector3 GetCameraBesidePosition()
+        {
+            return this._cameraBesideTransform.position;
         }
     }
 }

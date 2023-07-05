@@ -9,7 +9,7 @@ namespace NOOD.NoodCamera
         [SerializeField] float smoothTime = 2;
         [SerializeField] string targetTag = "Player";
         [SerializeField] Vector3 offset = new Vector3(0, 0, -10);
-        [SerializeField] bool isFollow = true;
+        [SerializeField] public bool isFollow = true;
         Transform targetTransform;
 
         private void LateUpdate()

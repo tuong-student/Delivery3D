@@ -22,12 +22,17 @@ namespace Game
             _acceptBtn.onClick.AddListener(() =>
             {
                 UIEvent.onEventPlaceButtonPress.Invoke(true);
+                Hide();
             });
             _denyBtn.onClick.AddListener(() =>
             {
                 UIEvent.onEventPlaceButtonPress.Invoke(false);
                 Hide();
             });
+        }
+        void OnDisable()
+        {
+            UIEvent.PurgeDelegatesOf(this);
         }
 
         private void SetEventText(string text)
@@ -49,6 +54,8 @@ namespace Game
             DOTween.Kill(_eventPlacePanel);
             DOTween.Kill(_denyBtn);
             DOTween.Kill(_acceptBtn);
+
+            if(isShowed == true) return;
             isShowed = true;
             _eventPlacePanel.transform.DOMove(_inEventTextTransform.position, 0.5f).SetEase(Ease.OutBounce);
             _denyBtn.transform.DOMove(_inDenyBtnTransform.position, 0.5f).SetEase(Ease.OutBounce);
