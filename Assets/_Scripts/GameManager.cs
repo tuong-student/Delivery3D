@@ -47,7 +47,7 @@ namespace Game
             }
             else
             {
-                _player.SetRoad(_sceneRoad.ChooseRoad(RoadDirection.Beginning));
+                _player.SetRoad(sceneRoad.ChooseRoad(RoadDirection.Beginning));
             }
         }
 

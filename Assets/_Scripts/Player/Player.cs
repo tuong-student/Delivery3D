@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Sirenix.OdinInspector;
 using ImpossibleOdds.DependencyInjection;
+using DG.Tweening;
 
 namespace Game
 {
@@ -17,6 +18,7 @@ namespace Game
         OverWeight
     }
 
+    [Injectable]
     public class Player : MonoBehaviour, IDependencyScopeInstaller
     {
         public void Install(IDependencyContainer container)
@@ -133,15 +135,19 @@ namespace Game
 
         public void SetRoad(Road road)
         {
+            Debug.Log(road);
             if(road == null) return;
-            SetCanMove(true);
             this._currentRoad = road;
             _currentPointPosition = _currentRoad.GetNextPointPosition();
-            Move();
+            SetCanMove(true);
         }
         public bool IsHadRoad()
         {
             return this._currentRoad != null;
+        }
+        public void ForceMove(Vector3 point)
+        {
+            this.transform.DOMove(point, 1f);
         }
 
         private void Move()
@@ -158,7 +164,12 @@ namespace Game
                     UIEvent.onDirectionButtonOnOffRequester.Invoke(true);
                 }
                 else
-                    _currentPointPosition = _currentRoad.GetNextPointPosition();
+                {
+                    if(_eventPlace == null)
+                        _currentPointPosition = _currentRoad.GetNextPointPosition();
+                    else
+                        Stop();
+                }
             }
             else
             {

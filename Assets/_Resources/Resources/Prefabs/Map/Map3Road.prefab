@@ -227,7 +227,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4074188433087289396}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -48.9}
+  m_LocalPosition: {x: 0, y: 0.01, z: -48.9}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -252,7 +252,7 @@ MonoBehaviour:
   roadPoints:
   - {fileID: 3854145455482041073}
   - {fileID: 162962741632732531}
-  _showDebugRoad: 0
+  _showDebugRoad: 1
 --- !u!1 &4775567702623987615
 GameObject:
   m_ObjectHideFlags: 0
