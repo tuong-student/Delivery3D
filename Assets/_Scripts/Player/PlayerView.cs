@@ -17,22 +17,22 @@ namespace Game
     {
         [SerializeField] private string RUNNING_STATE, JOGGING_STATE, WALKING_STATE;
         [SerializeField] private Animator _animator;
-        public PlayerState _playerState;
+        public PlayerStatus _playerStatus;
 
         public void Move()
         {
-            switch(_playerState)
+            switch(_playerStatus)
             {
-                case PlayerState.LightWeight:
+                case PlayerStatus.LightWeight:
                     SetAnim(AnimState.Running);
                     break;
-                case PlayerState.MediumWeight:
+                case PlayerStatus.MediumWeight:
                     SetAnim(AnimState.Jogging);
                     break;
-                case PlayerState.HeavyWeight:
+                case PlayerStatus.HeavyWeight:
                     SetAnim(AnimState.Walking);
                     break;
-                case PlayerState.OverWeight:
+                case PlayerStatus.OverWeight:
                     SetAnim(AnimState.Idle);
                     break;
             }

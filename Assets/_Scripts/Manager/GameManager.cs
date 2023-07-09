@@ -1,5 +1,4 @@
-using System.Collections.Generic;
-using UnityEngine;
+using System.Collections.Generic; using UnityEngine;
 using ImpossibleOdds.DependencyInjection;
 using System;
 
@@ -7,7 +6,8 @@ namespace Game
 {
     public enum GameState
     {
-        Playing,
+        OnTown,
+        OnRoad,
         Pause
     }
 
@@ -21,26 +21,51 @@ namespace Game
 
         [Inject]
         private Player _player;
+        [Inject]
+        private GameLoader _gameLoader;
         private SceneRoad _sceneRoad;
+        private TownManager _townManager;
+        private GameState _gameState;
+
+        [SerializeField] private List<GameObject> _maps = new List<GameObject>();
 
         void Awake()
         {
-        }
 
+        }
         void Start()
         {
+            _sceneRoad = GameObject.FindObjectOfType<SceneRoad>();
+            if(_sceneRoad == null)
+            {
+                _gameLoader.LoadToRoad();
+            }
+            TownNetworkManager.CreateTownNetwork(10);
+            _gameState = GameState.OnRoad;
             UIEvent.onDirectionButtonPress.Register(ChooseRoad);
         }
-
         void OnDestroy()
         {
             UIEvent.PurgeDelegatesOf(this);
         }
 
+        public void CreatePlayerIfNeed()
+        {
+            if(_player == null)
+            {
+                // Create a new player at the beginning point and set the beginning road to that player
+                _player = Player.Create();
+                _player.transform.position = _sceneRoad.GetBeginningPoint();
+                _player.SetCanMove(true);
+            }
+        }
+
         public void SetSceneRoad(SceneRoad sceneRoad)
         {
             this._sceneRoad = sceneRoad;
+            this._sceneRoad.SetGameManager(this);
             UIEvent.onSetDirectionBtnRequest.Invoke(_sceneRoad);
+            CreatePlayerIfNeed();
             if(_player.IsHadRoad())
             {
 
@@ -49,6 +74,11 @@ namespace Game
             {
                 _player.SetRoad(sceneRoad.ChooseRoad(RoadDirection.Beginning));
             }
+        }
+        public void SetTownManager(TownManager townManager)
+        {
+            this._townManager = townManager;
+            CreatePlayerIfNeed();
         }
 
         private void ChooseRoad(RoadDirection buttonType)
@@ -67,6 +97,12 @@ namespace Game
                     break;
             }
             _player.SetRoad(road);
+            _player.SetCanMove(true);
+        }
+
+        public GameState GetGameState()
+        {
+            return _gameState;
         }
     }
 

@@ -7,10 +7,10 @@ namespace Game
 {
     public class Road : MonoBehaviour
     {
-        [SerializeField] private SceneRoad sceneRoad;
-        [SerializeField] private List<Transform> roadPoints = new List<Transform>();
-        private int currentPointIndex = -1;
-        public int CurrentPointIndex => currentPointIndex;
+        [SerializeField] private SceneRoad _sceneRoad;
+        [SerializeField] private List<Transform> _roadPoints = new List<Transform>();
+        private int _currentPointIndex = -1;
+        public int CurrentPointIndex => _currentPointIndex;
         [SerializeField] private bool _showDebugRoad;
 
         void OnDrawGizmos()
@@ -23,18 +23,18 @@ namespace Game
         [GUIColor("@Color." + nameof(Color.cyan))]
         private void CreateNewPoint()
         {
-            GameObject point = new GameObject("Point" + roadPoints.Count);
+            GameObject point = new GameObject("Point" + _roadPoints.Count);
             point.transform.SetParent(this.transform);
-            roadPoints.Add(point.transform);
+            _roadPoints.Add(point.transform);
         }
 
         private void ShowDebugRoad()
         {
             if(_showDebugRoad)
             {
-                for(int i = 0; i < roadPoints.Count - 1; i++)
+                for(int i = 0; i < _roadPoints.Count - 1; i++)
                 {
-                    Gizmos.DrawLine(roadPoints[i].position, roadPoints[i + 1].position);
+                    Gizmos.DrawLine(_roadPoints[i].position, _roadPoints[i + 1].position);
                 }
             }
         }
@@ -48,21 +48,25 @@ namespace Game
             }
             else
             {
-                currentPointIndex++;
-                nextPointPosition = roadPoints[currentPointIndex].position;
+                _currentPointIndex++;
+                nextPointPosition = _roadPoints[_currentPointIndex].position;
                 return true;
             }
         }
 
         public Vector3 GetNextPointPosition()
         {
-            currentPointIndex++;
-            return roadPoints[currentPointIndex].position;
+            _currentPointIndex++;
+            return _roadPoints[_currentPointIndex].position;
+        }
+        public Vector3 GetPoint(int index)
+        {
+            return _roadPoints[index].position;
         }
 
         public bool IsLastPoint()
         {
-            if(currentPointIndex == roadPoints.Count - 1) return true;
+            if(_currentPointIndex == _roadPoints.Count - 1) return true;
             else return false;
         }
     }

@@ -136,7 +136,7 @@ MonoBehaviour:
     _weight: 0
     _destination: 
     _money: 0
-  _eventPoint: {fileID: 2358870575033382844}
+  _eventPointTransform: {fileID: 2358870575033382844}
 --- !u!1001 &4087180862775567668
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -23,7 +23,6 @@ namespace Game
             _cameraVirtual = GetComponent<CinemachineVirtualCamera>();
             _cameraFollow = GetComponent<NOOD.NoodCamera.CameraFollow>();
         }
-
         void Update()
         {
             if(_isReturning && _elapsedTime < _returnDuration)
@@ -32,6 +31,21 @@ namespace Game
                 _cameraVirtual.GetCinemachineComponent<CinemachineComposer>().m_TrackedObjectOffset.y = Mathf.Lerp(0, _trackOffsetY, _elapsedTime/_returnDuration);
             }
             else _isReturning = false;
+        }
+
+        private void SetTrackedObjectOffsetY(float value)
+        {
+            _cameraVirtual.GetCinemachineComponent<CinemachineComposer>().m_TrackedObjectOffset.y = value;
+        }
+        public void SetCameraTarget(Transform target)
+        {
+            if(!target.CompareTag("Player"))
+                SetTrackedObjectOffsetY(0);
+            else
+                SetTrackedObjectOffsetY(_trackOffsetY);
+
+            _cameraVirtual.LookAt = target;
+            _isReturning = false;
         }
 
         public void TranslateCamera(Vector3 newPosition)
@@ -43,13 +57,6 @@ namespace Game
         {
             _cameraFollow.isFollow = false;
             this.transform.DOMove(newPosition, 1f).SetEase(Ease.Flash).OnComplete(() => callback?.Invoke());
-        }
-
-        public void SetCameraTarget(Transform target)
-        {
-            _cameraVirtual.LookAt = target;
-            _cameraVirtual.GetCinemachineComponent<CinemachineComposer>().m_TrackedObjectOffset.y = 0;
-            _isReturning = false;
         }
 
         public void ReturnOldPosition()

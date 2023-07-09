@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 35702820}
   m_Layer: 0
-  m_Name: Point1 (3)
+  m_Name: Point2
   m_TagString: Untagged
   m_Icon: {fileID: -5397416234189338067, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -109,12 +109,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a37f381da080945ad8c2df63ebee898c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneRoad: {fileID: 2994184985136074463}
-  roadPoints:
+  _sceneRoad: {fileID: 0}
+  _roadPoints:
   - {fileID: 1684434242}
   - {fileID: 649514282}
   - {fileID: 141671749}
-  _showDebugRoad: 1
+  _showDebugRoad: 0
 --- !u!1 &649514281
 GameObject:
   m_ObjectHideFlags: 0
@@ -255,12 +255,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a37f381da080945ad8c2df63ebee898c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneRoad: {fileID: 2994184985136074463}
-  roadPoints:
+  _sceneRoad: {fileID: 0}
+  _roadPoints:
   - {fileID: 1960628838137196794}
   - {fileID: 3775813018941700015}
   - {fileID: 35702820}
-  _showDebugRoad: 1
+  _showDebugRoad: 0
 --- !u!1 &4179432231403811022
 GameObject:
   m_ObjectHideFlags: 0
@@ -551,7 +551,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1960628838137196794}
   m_Layer: 0
-  m_Name: Point1 (1)
+  m_Name: Point0
   m_TagString: Untagged
   m_Icon: {fileID: -5397416234189338067, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -582,7 +582,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3775813018941700015}
   m_Layer: 0
-  m_Name: Point1 (2)
+  m_Name: Point1
   m_TagString: Untagged
   m_Icon: {fileID: -5397416234189338067, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -649,11 +649,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a37f381da080945ad8c2df63ebee898c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneRoad: {fileID: 2994184985136074463}
-  roadPoints:
+  _sceneRoad: {fileID: 0}
+  _roadPoints:
   - {fileID: 785391577807517546}
   - {fileID: 5806468115818658440}
-  _showDebugRoad: 1
+  _showDebugRoad: 0
 --- !u!1001 &4179432231286532475
 PrefabInstance:
   m_ObjectHideFlags: 0

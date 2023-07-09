@@ -25,11 +25,19 @@ namespace Game
     public class SceneRoad : MonoBehaviour
     {
         [SerializeField] private CustomDictionary<RoadDirection, Road> _roadDic = new CustomDictionary<RoadDirection, Road>();
-        [Inject] private GameManager _gameManager;
+        private GameManager _gameManager;
 
+        void Awake()
+        {
+        }
         void Start()
         {
-            _gameManager.SetSceneRoad(this);
+            UIEvent.onSetDirectionBtnRequest.Invoke(this);
+        }
+
+        public void SetGameManager(GameManager gameManager)
+        {
+            _gameManager = gameManager;
         }
 
         public Road ChooseRoad(RoadDirection roadDirection)
@@ -40,6 +48,10 @@ namespace Game
         public RoadDirection[] GetRoadDirections()
         {
             return _roadDic.Keys.ToArray();
+        }
+        public Vector3 GetBeginningPoint()
+        {
+            return _roadDic[RoadDirection.Beginning].GetPoint(0);
         }
 
     }

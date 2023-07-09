@@ -392,6 +392,34 @@ namespace NOOD
             return ColorUtility.ToHtmlStringRGB(color);
         }
         #endregion
+
+
+        #region Text and File
+        private static string[] splitNewRow = new string[] { "\r\n", "\n", "\r" };
+        private static char[] splitNewWord = new char[] { ',' };
+        /// <summary>
+        /// Separate textAsset file into many string line with the separator
+        /// </summary>
+        /// <param name="textAsset"></param>
+        /// <param name="separator"> default separator is \r, \n</param>
+        /// <returns></returns>
+        public static string[] GetRows(TextAsset textAsset, string [] separator = null)
+        {
+            if(separator == null) separator = splitNewRow;
+            return textAsset.text.Split(separator, StringSplitOptions.RemoveEmptyEntries);
+        }
+        /// <summary>
+        /// return words in the row that separate with the separator
+        /// </summary>
+        /// <param name="row"> the string that want to separate</param>
+        /// <param name="separator"> default is ","</param>
+        /// <returns></returns>
+        public static string[] GetWordsInRow(string row, char[] separator = null)
+        {
+            if(separator == null) separator = splitNewWord;
+            return row.Split(separator, StringSplitOptions.RemoveEmptyEntries);
+        }
+        #endregion
     }
 
 }

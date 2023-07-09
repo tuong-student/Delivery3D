@@ -9,7 +9,7 @@ namespace Game
     public class NPCEvent : EventPlace
     {
         [SerializeField] private Package _currentPackage;
-        [SerializeField] private Transform  _eventPoint;
+        [SerializeField] private Transform  _eventPointTransform;
         [Inject] private CustomCamera _camera;
 
         private string[] _eventString = {
@@ -28,7 +28,12 @@ namespace Game
         protected override void OnAccept(bool value)
         {
             if(value == false) return;
-            _currentPlayer.Stop();
+            _currentPlayer.SetEventPlacePosition(this._eventPointTransform.position);
+        }
+
+        public override void OnPlayerGetToEventPoint()
+        {
+            AskPlayer();
         }
 
         private void AskPlayer()
@@ -46,13 +51,13 @@ namespace Game
             // If player press accept, give player the package
             if(value == false) return;
             GivePackageToPlayer();
+            _currentPlayer.SetCanMove(true);
             _camera.ReturnOldPosition();
         }
 
         private void GivePackageToPlayer()
         {
             _currentPlayer.AddPackage(_currentPackage);
-            _currentPlayer.SetCanMove(true);
             UIEvent.onEventPlaceButtonOnOffRequest.Invoke(false);
         }
     }

@@ -8,8 +8,11 @@ public class DependenceInjectionSceneScope : AbstractDependencyScopeBehaviour
 {
     public override void Inject()
     {
+        ContainerInstance = (DependencyContainer) DependencyContainer;
         gameObject.scene.GetRootGameObjects().Inject(DependencyContainer, true);
     }
+
+    public static DependencyContainer ContainerInstance { get; private set; }
 
     protected override void InstallBindings()
     {

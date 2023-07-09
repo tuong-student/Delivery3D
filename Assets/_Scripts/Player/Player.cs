@@ -8,7 +8,7 @@ using DG.Tweening;
 
 namespace Game
 {
-    public enum PlayerState
+    public enum PlayerStatus
     {
         Standing,
         Resting,
@@ -26,13 +26,20 @@ namespace Game
             container.Register<Player>(new InstanceBinding<Player>(this));
         }
 
-        public PlayerState _playerState;
+        public static Player Create(Transform parent = null)
+        {
+            return Instantiate<Player>(Resources.Load<Player>("Prefabs/Player"), parent);
+        }
+
+        public PlayerStatus _playerStatus;
         private bool _canMove;
+        private bool _eventPlaceMove;
         private Road _currentRoad;
         private float _currentSpeed;
         private EventPlace _eventPlace;
         private List<Package> _packageList = new List<Package>();
         private float _money;
+        private Vector3 _eventPlacePosition;
         [Inject] private CustomCamera _camera;
 
         [SerializeField] private Transform _cameraBesideTransform;
@@ -75,88 +82,102 @@ namespace Game
         private void AddCurrentWeight(float amount)
         {
             this._currentWeight += amount;
-            CheckCurrentWeight();
+            CheckPlayerStatus();
         }
         private void MinusCurrentWeight(float amount)
         {
             this._currentWeight -= amount;
-            CheckCurrentWeight();
+            CheckPlayerStatus();
         }
-        private void CheckCurrentWeight()
+        private void CheckPlayerStatus()
         {
             if((_currentWeight/_maxWeight) < _mediumWeightRation)
             {
-                this._playerState = PlayerState.LightWeight;
+                this._playerStatus = PlayerStatus.LightWeight;
             }
             if((_currentWeight/_maxWeight) >= _mediumWeightRation)
             {
-                this._playerState = PlayerState.MediumWeight;
+                this._playerStatus = PlayerStatus.MediumWeight;
             }
             if((_currentWeight/_maxWeight) >= _heavyWeightRation)
             {
-                this._playerState = PlayerState.HeavyWeight;
+                this._playerStatus = PlayerStatus.HeavyWeight;
             }
             if(_currentWeight >= _maxWeight)
             {
-                this._playerState = PlayerState.OverWeight;
+                this._playerStatus = PlayerStatus.OverWeight;
             }
         }
         #endregion
 
         #region UnityMethods
+        void Awake()
+        {
+            _camera = DependenceInjectionSceneScope.ContainerInstance.GetInstance<CustomCamera>();
+        }
         void Start()
         {
-            CheckCurrentWeight();
+            _camera.SetCameraTarget(this.transform);
+            CheckPlayerStatus();
         }
-
         void Update()
         {
-            _playerView._playerState = _playerState;
+            _playerView._playerStatus = _playerStatus;
             Move();
-            switch(_playerState)
+            switch(_playerStatus)
             {
-                case PlayerState.Standing:
-                case PlayerState.Resting:
-                case PlayerState.OverWeight:
-                    _playerView.Stop();
+                case PlayerStatus.Standing:
+                case PlayerStatus.Resting:
+                case PlayerStatus.OverWeight:
+                    Stop();
                     break;
-                case PlayerState.LightWeight:
+                case PlayerStatus.LightWeight:
                     _currentSpeed = _lightWeightSpeed;
                     break;
-                case PlayerState.MediumWeight:
+                case PlayerStatus.MediumWeight:
                     _currentSpeed = _mediumWeightSpeed;
                     break;
-                case PlayerState.HeavyWeight:
+                case PlayerStatus.HeavyWeight:
                     _currentSpeed = _heavyWeightSpeed;
                     break;
             }
         }
         #endregion
 
-        public void SetRoad(Road road)
+        public void SetRoad(Road road) 
         {
-            Debug.Log(road);
             if(road == null) return;
             this._currentRoad = road;
             _currentPointPosition = _currentRoad.GetNextPointPosition();
-            SetCanMove(true);
         }
         public bool IsHadRoad()
         {
             return this._currentRoad != null;
         }
-        public void ForceMove(Vector3 point)
-        {
-            this.transform.DOMove(point, 1f);
-        }
 
+    #region MovementZone
         private void Move()
         {
+            if(_eventPlaceMove)
+                EventPlaceMove();
             if(_canMove == false || _currentRoad == null) return;
+            NormalMove();
+        }
+        private void EventPlaceMove()
+        {
+            CheckPlayerStatus();
             _playerView.Move();
-            Vector3 moveDirection = NOOD.NoodyCustomCode.LookDirectionSameHigh(this.transform.position, _currentPointPosition);
-            this.transform.forward = moveDirection;
-            if(Vector3.Distance(this.transform.position, _currentPointPosition) < 0.5f)
+            if(MoveToPosition(_eventPlacePosition))
+            {
+                Stop();
+                _eventPlaceMove = false;
+                _eventPlace.OnPlayerGetToEventPoint();
+            }
+        }
+        private void NormalMove()
+        {
+            _playerView.Move();
+            if(MoveToPosition(_currentPointPosition))
             {
                 if(CheckIfStopPoint())
                 {
@@ -165,29 +186,48 @@ namespace Game
                 }
                 else
                 {
-                    if(_eventPlace == null)
-                        _currentPointPosition = _currentRoad.GetNextPointPosition();
-                    else
-                        Stop();
+                    _currentPointPosition = _currentRoad.GetNextPointPosition();
                 }
+            }
+        }
+        /// <summary>
+        /// Move player to position, return false if did get to position, return true if get to position
+        /// </summary>
+        /// <param name="position"> destination </param>
+        /// <returns></returns>
+        private bool MoveToPosition(Vector3 position)
+        {
+            Vector3 moveDirection = NOOD.NoodyCustomCode.LookDirectionSameHigh(this.transform.position, position);
+            this.transform.forward = moveDirection;
+            if(Vector3.Distance(this.transform.position, position) < 0.5f)
+            {
+                // Got to destination
+                return true;
             }
             else
             {
                 this.transform.position += moveDirection * _currentSpeed * Time.deltaTime;
+                return false;
             }
         }
-
         public void Stop()
         {
-            _playerState = PlayerState.Standing;
+            _playerStatus = PlayerStatus.Standing;
             _playerView.Stop();
             SetCanMove(false);
         }
+    #endregion
+
         public void SetCanMove(bool canMove)
         {
             this._canMove = canMove;
             if(canMove)
-                CheckCurrentWeight();
+                CheckPlayerStatus();
+        }
+        public void SetEventPlacePosition(Vector3 position)
+        {
+            this._eventPlacePosition = position;
+            this._eventPlaceMove = true;
         }
 
         private bool CheckIfStopPoint()
@@ -206,14 +246,12 @@ namespace Game
 
         public void AddPackage(Package package)
         {
-            Debug.Log(package);
             this._packageList.Add(package);
         }
         public void RemovePackage(Package package)
         {
             this._packageList.Remove(package);
         }
-
         public void AddMoney(float amount)
         {
             this._money += amount;

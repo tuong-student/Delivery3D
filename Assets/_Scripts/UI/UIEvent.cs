@@ -21,6 +21,7 @@ namespace Game
             onDirectionButtonOnOffRequester.PurgeDelegatesOf(target);
             onDirectionButtonPress.PurgeDelegatesOf(target);
             onSetDirectionBtnRequest.PurgeDelegatesOf(target);
+
             onEventPlaceSetRequest.PurgeDelegatesOf(target);
             onEventPlaceButtonPress.PurgeDelegatesOf(target);
             onEventPlaceButtonOnOffRequest.PurgeDelegatesOf(target);

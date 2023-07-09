@@ -46,8 +46,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a37f381da080945ad8c2df63ebee898c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneRoad: {fileID: 8344062066569397797}
-  roadPoints:
+  _sceneRoad: {fileID: 0}
+  _roadPoints:
   - {fileID: 6026629881872179896}
   - {fileID: 1208027816527551844}
   _showDebugRoad: 1
@@ -101,11 +101,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _roadDic:
     dicElement:
-    - key: 0
-      value: {fileID: 3986807040658431085}
     - key: 1
-      value: {fileID: 2074594192294502770}
+      value: {fileID: 3986807040658431085}
     - key: 2
+      value: {fileID: 2074594192294502770}
+    - key: 3
       value: {fileID: 3765049047967298891}
     - key: 0
       value: {fileID: 365974010402314883}
@@ -248,8 +248,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a37f381da080945ad8c2df63ebee898c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneRoad: {fileID: 0}
-  roadPoints:
+  _sceneRoad: {fileID: 0}
+  _roadPoints:
   - {fileID: 3854145455482041073}
   - {fileID: 162962741632732531}
   _showDebugRoad: 1
@@ -300,8 +300,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a37f381da080945ad8c2df63ebee898c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneRoad: {fileID: 8344062066569397797}
-  roadPoints:
+  _sceneRoad: {fileID: 0}
+  _roadPoints:
   - {fileID: 6161278063816444564}
   - {fileID: 9118104412468249065}
   - {fileID: 1169069080261401861}
@@ -477,8 +477,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a37f381da080945ad8c2df63ebee898c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneRoad: {fileID: 8344062066569397797}
-  roadPoints:
+  _sceneRoad: {fileID: 0}
+  _roadPoints:
   - {fileID: 6198373137802421056}
   - {fileID: 4077405921893264420}
   - {fileID: 7663812050185433495}

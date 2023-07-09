@@ -12,16 +12,16 @@ namespace Game
 
         protected virtual void OnEnable()
         {
-            UIEvent.onEventPlaceButtonPress.Register(OnAccept);
+            UIEvent.PurgeDelegatesOf(this);
         }
 
         void OnDisable()
         {
-            UIEvent.PurgeDelegatesOf(this);
         }
 
         protected virtual void OnTriggerEnter(Collider other)
         {
+            UIEvent.onEventPlaceButtonPress.Register(OnAccept);
             Player playerTemp = other.GetComponent<Player>();
             if (playerTemp != null)
             {
@@ -36,6 +36,7 @@ namespace Game
 
         protected virtual void OnTriggerExit(Collider other)
         {
+            UIEvent.PurgeDelegatesOf(this);
             Player playerTemp = other.GetComponent<Player>();
             if(playerTemp != null)
             {
@@ -47,6 +48,11 @@ namespace Game
         protected virtual void OnAccept(bool value)
         {
 
+        }
+
+        public virtual void OnPlayerGetToEventPoint()
+        {
+            
         }
     }
 }

@@ -46,17 +46,17 @@ namespace Game
             this.CurrentStamina += amount;
         }
 
-        public void MinusStamina(PlayerState playerState)
+        public void MinusStamina(PlayerStatus playerState)
         {
             switch(playerState)
             {
-                case PlayerState.LightWeight:
+                case PlayerStatus.LightWeight:
                     _currentStamina -= _lightConsumption;
                     break;
-                case PlayerState.MediumWeight:
+                case PlayerStatus.MediumWeight:
                     _currentStamina -= _lightConsumption;
                     break;
-                case PlayerState.HeavyWeight:
+                case PlayerStatus.HeavyWeight:
                     _currentStamina -= _lightConsumption;
                     break;
             }

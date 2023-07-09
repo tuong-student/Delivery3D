@@ -12,20 +12,19 @@ namespace Game
         private static string[] splitNewRow = new string[] { "\r\n", "\r", "\n" };
         private static char[] splitInRow = new char[] { ',' };
 
+        private static string GetRandomPackageInfo()
+        {
+            string[] strings = NOOD.NoodyCustomCode.GetRows(_textAsset);
+            return strings[new System.Random().Next(0, strings.Length)];
+        }
         public static Package GetRandomPackage()
         {
             if(_textAsset == null)
                 _textAsset = Resources.Load<TextAsset>("packages");
 
             string packageInfo = GetRandomPackageInfo();
-            string[] packageInfoSplitted = packageInfo.Split(splitInRow, StringSplitOptions.RemoveEmptyEntries);
+            string[] packageInfoSplitted = NOOD.NoodyCustomCode.GetWordsInRow(packageInfo);
             return new Package(packageInfoSplitted[0], float.Parse(packageInfoSplitted[1]), packageInfoSplitted[2], float.Parse(packageInfoSplitted[3]));
-        }
-
-        private static string GetRandomPackageInfo()
-        {
-            string[] strings = _textAsset.text.Split(splitNewRow, StringSplitOptions.RemoveEmptyEntries);
-            return strings[new System.Random().Next(0, strings.Length)];
         }
     }
 
