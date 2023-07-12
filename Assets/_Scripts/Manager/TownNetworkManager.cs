@@ -57,6 +57,10 @@ namespace Game
             _townNames.Remove(townName);
             return townName;
         }
+        public static Town GetTownByName(string name)
+        {
+            return _towns.First(x => x._name == name);
+        }
         
         public void GetNextTown(string currentTown, out string town1, out string town2)
         {

@@ -1,5 +1,6 @@
 using System.Collections.Generic; using UnityEngine;
 using ImpossibleOdds.DependencyInjection;
+using ImpossibleOdds;
 using System;
 
 namespace Game
@@ -26,8 +27,7 @@ namespace Game
         private SceneRoad _sceneRoad;
         private TownManager _townManager;
         private GameState _gameState;
-
-        [SerializeField] private List<GameObject> _maps = new List<GameObject>();
+        private Town _currentTown;
 
         void Awake()
         {
@@ -35,10 +35,9 @@ namespace Game
         }
         void Start()
         {
-            _sceneRoad = GameObject.FindObjectOfType<SceneRoad>();
-            if(_sceneRoad == null)
+            if(_currentTown._name.IsNullOrEmpty())
             {
-                _gameLoader.LoadToRoad();
+                _gameLoader.LoadToRoad(null);
             }
             TownNetworkManager.CreateTownNetwork(10);
             _gameState = GameState.OnRoad;
@@ -79,6 +78,10 @@ namespace Game
         {
             this._townManager = townManager;
             CreatePlayerIfNeed();
+        }
+        public void SetCurrentTown(Town currentTown)
+        {
+            this._currentTown = currentTown;
         }
 
         private void ChooseRoad(RoadDirection buttonType)

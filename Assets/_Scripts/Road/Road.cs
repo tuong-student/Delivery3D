@@ -12,6 +12,7 @@ namespace Game
         private int _currentPointIndex = -1;
         public int CurrentPointIndex => _currentPointIndex;
         [SerializeField] private bool _showDebugRoad;
+        [SerializeField] private Portal _portal;
 
         void OnDrawGizmos()
         {
@@ -39,6 +40,11 @@ namespace Game
             }
         }
 
+        public void SetNextTown(Town town)
+        {
+            _portal.SetTown(town);
+        }
+
         public bool TryToGetNextPointPosition(out Vector3 nextPointPosition)
         {
             if(IsLastPoint()) 
@@ -53,7 +59,6 @@ namespace Game
                 return true;
             }
         }
-
         public Vector3 GetNextPointPosition()
         {
             _currentPointIndex++;

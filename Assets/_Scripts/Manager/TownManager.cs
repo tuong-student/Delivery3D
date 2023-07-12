@@ -44,7 +44,20 @@ namespace Game
     public class TownManager : MonoBehaviour
     {
         private GameManager _gameManager;
+        private Town _currentTown;
 
+        void Awake()
+        {
+            _gameManager = DependenceInjectionSceneScope.ContainerInstance.GetInstance<GameManager>();
+        }
+        void Start()
+        {
+            _gameManager.SetCurrentTown(_currentTown);
+        }
 
+        public void SetCurrentTown(Town town)
+        {
+            _currentTown = town;
+        }
     }
 }
